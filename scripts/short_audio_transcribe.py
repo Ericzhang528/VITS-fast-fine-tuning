@@ -12,8 +12,12 @@ lang2token = {
         }
 def transcribe_one(audio_path):
     # load audio and pad/trim it to fit 30 seconds
-    audio = whisper.load_audio(audio_path)
-    audio = whisper.pad_or_trim(audio)
+    # debbguer whisper
+    try:
+        audio = whisper.load_audio(audio_path)
+        audio = whisper.pad_or_trim(audio)
+    except Exception as e:
+        print("load_audio & pad_or_trim", e)
 
     # make log-Mel spectrogram and move to the same device as the model
     mel = whisper.log_mel_spectrogram(audio).to(model.device)
